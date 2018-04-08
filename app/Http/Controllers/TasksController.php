@@ -23,6 +23,7 @@ class TasksController extends Controller
         return view('tasks.index', [
             'tasks' => $tasks,
         ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -48,7 +49,7 @@ class TasksController extends Controller
     // postでtasks/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
-        $task = new Tasks;
+        $task = new Task;
         $task->content = $request->content;
         $task->save();
 
@@ -63,7 +64,7 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-        $tasks = Task::find($id);
+        $task = Task::find($id);
 
         return view('tasks.show', [
             'task' => $task,
