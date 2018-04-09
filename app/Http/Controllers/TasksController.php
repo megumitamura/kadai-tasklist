@@ -50,10 +50,12 @@ class TasksController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'status' => 'required|max:255',   // 追加
             'content' => 'required|max:255',
         ]);
 
         $task = new Task;
+        $task->status = $request->status;    // 追加
         $task->content = $request->content;
         $task->save();
 
@@ -102,10 +104,12 @@ class TasksController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'status' => 'required|max:255',   // 追加
             'content' => 'required|max:255',
         ]);
         
         $task = Task::find($id);
+        $task->status = $request->status;    // 追加
         $task->content = $request->content;
         $task->save();
 
