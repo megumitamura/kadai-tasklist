@@ -1,5 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('users.users', ['users' => $users])
+
+     @if (Auth::check())
+        <?php $user = Auth::user(); ?>
+        {{ $user->name }}
+        <h1>タスク一覧</h1>
+        
+        @if (count($tasklists) > 0)
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>ステータス</th>
+                    <th>タスク</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($tasklists as $tasklist)
+                    <tr>
+                        <td>{!! link_to_route('tasks.show', $tasklist->id, ['id' => $tasklist->id]) !!}</td>
+                        <td>{{ $tasklist->status }}</td>
+                        <td>{{ $tasklist->content }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+        {!! link_to_route('tasklists.create', '新規タスクの作成', null, ['class' => 'btn btn-primary']) !!}
+
+
+
+    @else
+        <div class="center jumbotron">
+            <div class="text-center">
+                <h1>Tasklist</h1>
+                {!! link_to_route('signup.get', 'Sign up now!', null, ['class' => 'btn btn-lg btn-primary']) !!}
+            </div>
+        </div>
+    @endif
+
+
 @endsection

@@ -24,6 +24,7 @@ Route::post('signup', 'Auth\AuthController@postRegister')->name('signup.post');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+    Route::resource('tasks', 'TasksController');
+    // tasklists.index, tasklists.show, tasklists.create
 });
 
-Route::resource('tasks', 'TasksController');
